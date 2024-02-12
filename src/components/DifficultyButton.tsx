@@ -1,15 +1,19 @@
 import { Difficulty } from '../types';
 
 interface DifficultyButtonProps {
-  difficulty: Difficulty
-  selected: Difficulty | null
-  setSelected: (difficulty: Difficulty) => void
+  difficulty: Difficulty;
+  selected: Difficulty | null;
+  setSelected: (difficulty: Difficulty) => void;
 }
 
-const DifficultyButton = ({ difficulty, selected, setSelected }: DifficultyButtonProps) => {
+const DifficultyButton = ({
+  difficulty,
+  selected,
+  setSelected,
+}: DifficultyButtonProps) => {
   const { label } = difficulty;
 
-  const style = difficulty === selected ? ' selected-category' : '';
+  const style = difficulty === selected ? ' selected-btn' : '';
 
   return (
     <button

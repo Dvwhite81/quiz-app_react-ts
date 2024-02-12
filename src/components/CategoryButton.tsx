@@ -1,15 +1,19 @@
 import { Category } from '../types';
 
 interface CategoryButtonProps {
-  category: Category
-  selected: Category | null
-  setSelected: (category: Category) => void
+  category: Category;
+  selected: Category | null;
+  setSelected: (category: Category) => void;
 }
 
-const CategoryButton = ({ category, selected, setSelected }: CategoryButtonProps) => {
+const CategoryButton = ({
+  category,
+  selected,
+  setSelected,
+}: CategoryButtonProps) => {
   const { label } = category;
 
-  const style = category === selected ? ' selected-category' : '';
+  const style = category === selected ? ' selected-btn' : '';
 
   return (
     <button

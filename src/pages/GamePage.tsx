@@ -4,12 +4,14 @@ import QuestionContainer from '../components/QuestionContainer';
 
 interface GamePageProps {
   questions: Question[];
-  handleClick: () => void;
+  endRound: () => void;
   show: boolean;
 }
 
-const GamePage = ({ questions, handleClick, show }: GamePageProps) => {
+const GamePage = ({ questions, endRound, show }: GamePageProps) => {
   const [currentQuestion, setCurrentQuestion] = useState<Question>(questions[0]);
+  const [number, setNumber] = useState(1);
+  const [result, setResult] = useState('');
 
   if (!show) return null;
 
@@ -19,16 +21,23 @@ const GamePage = ({ questions, handleClick, show }: GamePageProps) => {
 
     if (nextQuestion) {
       setCurrentQuestion(nextQuestion);
+      setNumber((prev) => prev + 1);
     } else {
-      handleClick();
+      endRound();
     }
   }
 
   return (
     <div id="game-page" className="page">
-      <QuestionContainer question={currentQuestion} handleClick={getNextQuestion} />
+      <QuestionContainer
+        number={number}
+        currentQuestion={currentQuestion}
+        setResult={setResult}
+        getNextQuestion={getNextQuestion}
+      />
+      <div id="result-container">{result}</div>
     </div>
-  )
+  );
 }
 
 export default GamePage;

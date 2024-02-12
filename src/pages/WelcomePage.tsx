@@ -7,7 +7,7 @@ interface WelcomePageProps {
   setCategory: (category: Category) => void
   difficulty: Difficulty | null
   setDifficulty: (difficulty: Difficulty) => void
-  handleClick: (category: Category, difficulty: Difficulty) => void
+  startRound: (category: Category, difficulty: Difficulty) => void
   show: boolean
 }
 
@@ -16,15 +16,15 @@ const WelcomePage = ({
   setCategory,
   difficulty,
   setDifficulty,
-  handleClick,
+  startRound,
   show,
 }: WelcomePageProps) => {
 
   if (!show) return null;
 
-  const handleSubmit = () => {
+  const handleClick = () => {
     if (category && difficulty) {
-      handleClick(category, difficulty);
+      startRound(category, difficulty);
     }
   }
 
@@ -41,7 +41,7 @@ const WelcomePage = ({
       <button
         id="welcome-submit"
         className="btn btn-submit"
-        onClick={handleSubmit}
+        onClick={handleClick}
       >
         Play!
       </button>

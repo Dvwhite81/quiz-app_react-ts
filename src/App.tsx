@@ -20,7 +20,11 @@ function App() {
     setPage('game');
   };
 
-  const endRound = () => setPage('welcome');
+  const endRound = () => {
+    setCategory(null);
+    setDifficulty(null);
+    setPage('welcome');
+  }
 
   return (
     <>
@@ -30,10 +34,10 @@ function App() {
         setCategory={setCategory}
         difficulty={difficulty}
         setDifficulty={setDifficulty}
-        handleClick={startRound}
+        startRound={startRound}
         show={page === 'welcome'}
       />
-      {questions && <GamePage questions={questions} handleClick={endRound} show={page === 'game'} />}
+      {questions && <GamePage questions={questions} endRound={endRound} show={page === 'game'} />}
     </>
   );
 }
