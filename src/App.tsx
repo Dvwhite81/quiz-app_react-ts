@@ -1,17 +1,32 @@
-import Logo2 from './assets/images/Logo-Circle.png';
-import Logo from '/Logo-Circle.png';
+import { useState } from 'react';
+import axios from 'axios';
+import { CATEGORIES, DIFFICULTIES } from './data';
+import { Category, Difficulty, Question } from './types';
+import CategorySelect from './components/CategorySelect';
+import NavBar from './components/Navbar';
 import './App.css';
+import WelcomePage from './pages/WelcomePage';
 
 function App() {
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
+  const [difficulty, setDifficulty] = useState<Difficulty>(DIFFICULTIES[0]);
+  const [limit, setLimit] = useState(5);
+  const [questions, setQuestions] = useState<Question[] | []>([]);
+
+  const getQuestion = async () => {
+    const apiUrl = `https://the-trivia-api.com/api/questions?categories=${selectedCategory?.values}&limit=${limit}&difficulty=${difficulty.value}`;
+    const response = await axios.get(apiUrl);
+    if (response) {
+      console.log('response.data:', response.data);
+      setQuestions(response.data);
+    }
+  };
+
   return (
     <>
-      <h1>Hello</h1>
-      <a href="https://vitejs.dev" target="_blank">
-        <img src={Logo} className="logo" alt="Vite logo" />
-      </a>
-      <a href="https://react.dev" target="_blank">
-        <img src={Logo2} className="logo react" alt="React logo" />
-      </a>
+      <NavBar />
+      <WelcomePage categories={CATEGORIES} difficulties={DIFFICULTIES} />
+      
     </>
   );
 }
