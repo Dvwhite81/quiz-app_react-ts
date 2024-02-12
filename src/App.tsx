@@ -1,32 +1,39 @@
 import { useState } from 'react';
-import axios from 'axios';
-import { CATEGORIES, DIFFICULTIES } from './data';
-import { Category, Difficulty, Question } from './types';
-import CategorySelect from './components/CategorySelect';
+import GamePage from './pages/GamePage';
 import NavBar from './components/Navbar';
-import './App.css';
 import WelcomePage from './pages/WelcomePage';
+import { Category, Difficulty, Question } from './types';
+import { getQuestions } from './api';
+import './App.css';
 
 function App() {
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
-  const [difficulty, setDifficulty] = useState<Difficulty>(DIFFICULTIES[0]);
-  const [limit, setLimit] = useState(5);
-  const [questions, setQuestions] = useState<Question[] | []>([]);
+  const [page, setPage] = useState('welcome');
+  const [category, setCategory] = useState<Category | null>(null);
+  const [difficulty, setDifficulty] = useState<Difficulty | null>(null);
+  const [questions, setQuestions] = useState<Question[] | null>(null);
 
-  const getQuestion = async () => {
-    const apiUrl = `https://the-trivia-api.com/api/questions?categories=${selectedCategory?.values}&limit=${limit}&difficulty=${difficulty.value}`;
-    const response = await axios.get(apiUrl);
-    if (response) {
-      console.log('response.data:', response.data);
-      setQuestions(response.data);
-    }
+  const startRound = async (selectedCategory: Category, selectedDifficulty: Difficulty) => {
+    setCategory(selectedCategory);
+    setDifficulty(selectedDifficulty);
+    const result = await getQuestions(selectedCategory, selectedDifficulty);
+    setQuestions(result);
+    setPage('game');
   };
+
+  const endRound = () => setPage('welcome');
 
   return (
     <>
       <NavBar />
-      <WelcomePage categories={CATEGORIES} difficulties={DIFFICULTIES} />
-      
+      <WelcomePage
+        category={category}
+        setCategory={setCategory}
+        difficulty={difficulty}
+        setDifficulty={setDifficulty}
+        handleClick={startRound}
+        show={page === 'welcome'}
+      />
+      {questions && <GamePage questions={questions} handleClick={endRound} show={page === 'game'} />}
     </>
   );
 }

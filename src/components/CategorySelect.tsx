@@ -1,19 +1,25 @@
-import { Category } from '../types';
 import CategoryButton from './CategoryButton';
+import { Category } from '../types';
+import { CATEGORIES } from '../data';
+
 
 interface CategorySelectProps {
-  categories: Category[]
+  selected: Category | null
+  setSelected: (category: Category) => void
 }
 
-const CategorySelect = ({ categories }: CategorySelectProps) => {
+const CategorySelect = ({ selected, setSelected }: CategorySelectProps) => {
   return (
     <div className="page-container">
-      <h3 className="page-header">
-        select a category
-      </h3>
+      <h3 className="page-header">select a category</h3>
       <div id="category-select" className="select-container">
-        {categories.map((c) => (
-          <CategoryButton key={c.label} category={c} />
+        {CATEGORIES.map((c) => (
+          <CategoryButton
+            key={c.label}
+            category={c}
+            selected={selected}
+            setSelected={setSelected}
+          />
         ))}
       </div>
     </div>

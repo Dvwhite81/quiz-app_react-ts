@@ -56,7 +56,8 @@
   padding: 0.5rem;
 }
 
-.btn:hover {
+.btn:hover,
+.selected-category {
   background-color: var(--dark-bg-1);
   color: var(--gray-bg);
   transform: scale(1.2);
