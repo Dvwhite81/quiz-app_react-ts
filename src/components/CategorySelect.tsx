@@ -2,13 +2,13 @@ import CategoryButton from './CategoryButton';
 import { Category } from '../types';
 import { CATEGORIES } from '../data';
 
-
 interface CategorySelectProps {
-  selected: Category | null
-  setSelected: (category: Category) => void
+  selected: Category | null;
+  setSelected: (category: Category) => void;
+  usedCategories: Category[];
 }
 
-const CategorySelect = ({ selected, setSelected }: CategorySelectProps) => {
+const CategorySelect = ({ selected, setSelected, usedCategories }: CategorySelectProps) => {
   return (
     <div className="page-container">
       <h3 className="page-header">select a category</h3>
@@ -19,6 +19,7 @@ const CategorySelect = ({ selected, setSelected }: CategorySelectProps) => {
             category={c}
             selected={selected}
             setSelected={setSelected}
+            usedCategories={usedCategories}
           />
         ))}
       </div>

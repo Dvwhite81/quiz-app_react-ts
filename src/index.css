@@ -14,8 +14,12 @@
   --gray-bg: #E1E1E3;
 }
 
-.hide {
-  display: none !important;
+.hidden {
+  visibility: hidden !important;
+}
+
+.underline {
+  text-decoration: underline;
 }
 
 @font-face {

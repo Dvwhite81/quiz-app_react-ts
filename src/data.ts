@@ -55,3 +55,14 @@ export const DIFFICULTIES = [
     value: 'hard',
   },
 ];
+
+export const GAMETYPES = [
+  {
+    label: 'Play For Fun',
+    value: 'fun',
+  },
+  {
+    label: 'Play For Points',
+    value: 'points'
+  }
+];

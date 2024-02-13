@@ -3,14 +3,12 @@ import { Difficulty } from '../types';
 import { DIFFICULTIES } from '../data';
 
 interface DifficultySelectProps {
-  selected: Difficulty | null
-  setSelected: (difficulty: Difficulty) => void
-}
+  selected: Difficulty | null;
+  setSelected: (difficulty: Difficulty) => void;
+  gameIsStarted: boolean;
+  }
 
-const DifficultySelect = ({
-  selected,
-  setSelected,
-}: DifficultySelectProps) => {
+const DifficultySelect = ({ selected, setSelected, gameIsStarted }: DifficultySelectProps) => {
   return (
     <div className="page-container">
       <h3 className="page-header">select a difficulty</h3>
@@ -21,6 +19,7 @@ const DifficultySelect = ({
             difficulty={d}
             selected={selected}
             setSelected={setSelected}
+            gameIsStarted={gameIsStarted}
           />
         ))}
       </div>

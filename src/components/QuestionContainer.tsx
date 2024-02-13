@@ -3,13 +3,16 @@ import { Question } from '../types';
 import AnswerButton from './AnswerButton';
 
 interface QuestionContainerProps {
-  number: number
-  currentQuestion: Question
-  setResult: (result: string) => void
-  getNextQuestion: () => void
+  number: number;
+  currentQuestion: Question;
+  checkAnswer: (guess: string) => void;
 }
 
-const QuestionContainer = ({ number, currentQuestion, setResult, getNextQuestion }: QuestionContainerProps) => {
+const QuestionContainer = ({
+  number,
+  currentQuestion,
+  checkAnswer,
+}: QuestionContainerProps) => {
   const [answers, setAnswers] = useState<string[]>([]);
 
   const { correctAnswer, incorrectAnswers, question } = currentQuestion;
@@ -24,19 +27,6 @@ const QuestionContainer = ({ number, currentQuestion, setResult, getNextQuestion
 
     setAnswers(allAnswers);
   }, [incorrectAnswers]);
-
-  const checkAnswer = (answer: string) => {
-    if (answer === correctAnswer) {
-      setResult('Correct!');
-    } else {
-      setResult(`Wrong! The correct answer was ${correctAnswer}`);
-    }
-
-    setTimeout(() => {
-      setResult('');
-      getNextQuestion();
-    }, 2000);
-  };
 
   return (
     <div className="question-container">

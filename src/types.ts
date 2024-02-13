@@ -16,3 +16,8 @@ export type Question = {
   question: string,
   type: string,
 }
+
+export type Result = {
+  isCorrect: boolean,
+  text: string[],
+}
