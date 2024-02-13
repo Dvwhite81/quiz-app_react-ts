@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Category, Difficulty, Question } from './types';
 import { getQuestions } from './api';
+import EndGameModal from './components/EndGameModal';
 import EndRoundModal from './components/EndRoundModal';
 import GamePage from './pages/GamePage';
 import HomePage from './pages/HomePage';
@@ -32,6 +33,9 @@ function App() {
     setQuestions(result);
     setRoundIsOver(false);
     setRoundGuesses([]);
+    if (gameType === 'points') {
+      setUsedCategories(usedCategories.concat(selectedCategory));
+    }
     setPage('game');
   };
 
@@ -44,6 +48,9 @@ function App() {
       setGameIsStarted(false);
       setUsedCategories([]);
     }
+    if (gameType === 'points' && usedCategories.length === 10) {
+      setGameIsOver(true);
+    }
   };
 
   const startGame = (
@@ -53,15 +60,7 @@ function App() {
     setGameIsStarted(true);
     setGameIsOver(false);
     startRound(selectedCategory, selectedDifficulty);
-    setUsedCategories(usedCategories.concat(selectedCategory));
   };
-
-  const endGame = () => {
-    // Open modal with points
-    // reset gamePoints, setPage
-    setGameIsOver(true);
-    resetAll();
-  }
 
   const addPoints = (index: number) => {
     const pointsToAdd =
@@ -78,15 +77,18 @@ function App() {
   };
 
   const resetAll = () => {
+    console.log('resetAll');
+    setGameIsStarted(false);
+    setRoundIsOver(false);
+    setGameIsOver(false);
+    setUsedCategories([]);
+    setRoundGuesses([]);
+    setGameRightGuesses(0);
     setCategory(null);
     setDifficulty(null);
     setQuestions(null);
-    setGameIsStarted(false);
-    setUsedCategories([]);
-    setRoundGuesses([]);
     setGamePoints(0);
     setRoundPoints(0);
-    setGameType('fun');
     setPage('home');
   }
 
@@ -127,6 +129,9 @@ function App() {
           roundGuesses={roundGuesses}
           setPage={setPage}
         />
+      )}
+      {gameIsOver && gameType === 'points' && (
+        <EndGameModal gamePoints={gamePoints} gameRightGuesses={gameRightGuesses} resetAll={resetAll} />
       )}
     </>
   );

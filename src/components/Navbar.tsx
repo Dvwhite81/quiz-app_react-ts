@@ -19,6 +19,7 @@ const NavBar = ({
   resetAll,
 }: NavBarProps) => {
   const handlePlayForPoints = () => {
+    console.log('handlePlayForPoints');
     if (gameIsStarted) {
       resetAll();
     }

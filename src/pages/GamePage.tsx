@@ -55,7 +55,7 @@ const GamePage = ({ questions, endRound, addPoints, show }: GamePageProps) => {
         text: ['Wrong!', `The correct answer was ${correctAnswer}`],
       });
     }
-
+    
     setTimeout(() => {
       setResult(null);
       getNextQuestion();

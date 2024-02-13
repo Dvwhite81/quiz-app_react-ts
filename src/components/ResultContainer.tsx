@@ -10,9 +10,11 @@ const ResultContainer = ({ result }: ResultContainerProps) => {
   const { text } = result;
 
   return (
-    <div id="result-container" className="modal">
-      <h3>{text[0]}</h3>
-      {text[1] && <p>{text[1]}</p>}
+    <div id="outer-result-container" className="modal">
+      <div id="result-container">
+        <h3>{text[0]}</h3>
+        {text[1] && <p>{text[1]}</p>}
+      </div>
     </div>
   );
 };
